@@ -66,7 +66,7 @@ Programming languages let us give instructions to computers in human readable fo
 
 ```c
 /* Author : Your name */
-/* Date : Todays date */
+/* Date : Today's date */
 
 #include <stdio.h>
 
@@ -76,24 +76,26 @@ int main(){
 }
 ```
 
-After you have a source file a second program translates the human readable program into instructions that the computer can understand. This program is called a compiler. (*Note: There are other methods of going from source code to program. Google, compiled vs interpreted languages if you are interested.*) Most compilers are command line programs, and are accessed from the command line. We will use the gnu C Compiler, which is called with the command 'gcc'. (*There are other C compilers: some important ones are clang, Apple's compiler and icc, intel's compiler.*) In the command line, use the `cd` command to navigate to the directory where you saved the "hello.c" source file. Then type the following command
-
+After you have a source file a second program translates the human readable program into instructions that the computer can understand. This program is called a compiler. (*Note: There are other methods of going from source code to program. Google, compiled vs interpreted languages if you are interested.*) Most compilers are command line programs, and are accessed from the command line. We will use the gnu C Compiler, which is called with the command 'gcc'. (*There are other C compilers: some important ones are clang, Apple's compiler and icc, intel's compiler.*) In the command line, use the `cd` command to navigate to the directory where you saved the "hello.c" source file. Type the following command at the command prompt.
 ```bash
-gcc hello.c
+$> gcc hello.c
 ```
-
-This should have created a new file called "a.out". This is your compiled program. You can now run you program by typing it's name preceded by a './':
-
+(*Note: When giving commands on the command line, I will write precede them with a $> to represent the command prompt. Do not copy these two symbols. If you do you will get an error message.*) The command should have created a new file called "a.out". This is your compiled program. You can now run you program by typing it's name preceded by a './':
 ```bash
-./a.out
+$> ./a.out
 ```
+If everything worked, it should print "Hello World!" to the command line and give you a new prompt. 
+```bash
+$> ./a.out
+Hello World!
+$>
+```
+If it didn't work you get your first try at debugging! The most common mistake is that you have not correctly navigated to the directory that holds your "hello.c" source file. You can check the present working directory with the 'pwd' command, and you can check the contents of the directory with the 'ls' command. The second most common mistake is not having gcc compiler installed correctly.
 
-If everything worked, it should print "Hello World!" to the command line. If it didn't work you get your first try at debugging! 
-
-You have just written and compiled your first program. Lets go through the program line by line to see what parts it has. The very first thing we see are two comments.
+If it did work, Contragulations! You have just written and compiled your first program. Lets go through the program line by line to see what parts it has. The very first thing we see are two comments.
 ```c
 /* Author : Your name */
-/* Date : Todays date */
+/* Date : Today's date */
 ```
 A comment is any thing between `/*` and `*/`. It is important to comment you code. In this case, the code was used to note the author and date of creation. You also often describe the purpose of the code and any inputs and outputs it might have. The next thing we see is an include statement.
 ```c
@@ -113,8 +115,18 @@ There are several parts we need to discuss here. First, lets address the functio
 ```
 The return statement signifies the end of a function. The return value is given back to the caller, in this case that is the operating system. It is standard practice that the main function returns 0 if the program exits successfully, and returns a non-zero value if there is an error that forces the program to exit early.
 
-The above explains 
+After you've written the source code, you have to compile it. This is done on the command line with the 'gcc' command as shown above. However, there are several options that can be added to the command that give the compiler a little more detail about what we would like to do. The first option is to choose an output file name different than 'a.out'. This is done with the '-o OUTPUT_NAME' options. For example if we wanted to call the program 'hello' we would give the command written below.
+```bash
+$> gcc -o hello hello.c
+```
+(*Note: In the unix environment, executable programs have no extension.*) There are several other command line options that we will want to know about. For now, we will focus on adding just a few. First is the '-Wall' option. This turns on all possible warnings (-W for warning, then all; not the word wall). A warning is something the that will compile, but is often the result of a mistake - most often for me at least for leaving out semicolons. Next is the '-O0', '-O1', '-O2', '-O3' (that is dash capital O, then a number, not dash then the numeral 0). This enables or disables optimizations. You will often want to use '-O0' or '-O1' when you are writing the program, then switch to '-O2' or '-O3' when running the program. Finally, we will often want to enable debugging (covered much later) when we are developing the program with the '-g' option. A typical compilation command the combines all of these options is given below
+```bash
+$> gcc -Wall -O0 -g -o hello hello.c
+```
 
 ### Assignment ###
-Change the 'hello'
+Create a new source file called 'hw-01a.c' what prints out a different statement to the command line. Then compile it and name the program 'hw-01a'.
+
+
+
  
