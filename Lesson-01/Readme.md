@@ -119,11 +119,13 @@ int main(){
 ```
 First, if I try to compile this program, I will get a warning about using an uninitialized value. Second, I might notice different behaviour if I compile with different optimization options. That is it might behave one way if compiled with '-O0' and another when compiled with '-O3'.
 
-Once a variable has been declared and its value determined, we will need to output that value in some what. The simplest way is using the `printf` function, which stands for formatted print. An example was used in the short program above.
+Once a variable has been declared and its value determined, we will often want to output that value. The simplest way is using the `printf` function, which stands for formatted print. An example was used in the short program above.
 ```c
   printf("a = %g \n", a); /* print the value */
 ```
 The `printf` function takes a variable number of arguments. The first argument is a string. This string should contain 'format specifier's. A 'format specifier' is a percent sign possibly followed by a number followed by a letter, and tells the computer how to format the output. For us, the imporant format specifiers are `%s` for a string, `%d` for a decimal integer, `%f` for a floating point number in decimal notation, `%e` for a floating point number, and `%g` for the shorterof the `%e` and `%f` options. (*Note: I've given you the bare minimum for using the printf statment -- you should google 'printf' to learn more about the format specifiers.*)
+
+If we dont want to output the variables we might want to compare them
 
 Variables really become useful when we start manipulating them. C allows you to do simple arthmatic will the numeric variables: negation (`-`), addition (`+`), subtraction (`-`), multiplication (`*`), and division (`/`). (*Note: Raising to a power is **not** one of the basic operations.*) Parenthesis can be used to group operations. The order of operations are the usual ones from algebra: parenthesis first, multiplication and division second, addition and subtraction third.
 ```c
@@ -141,8 +143,7 @@ These operations behave as you would expect for both integer types (`int` and `l
 
 For the first caveat, you have to be careful about division with integer types. Intergers are not closed under division, when you divide two integers you get both a quotient and a remainder. For integer types, the division operator gives only the quotient. (*Note: The modulo operator (`%`) gives the remainder.*) The second caveat is what happens when the values go out of the ranges listed above. This is undefined behavior according to the C language standard, which means that it is up to the compiler writers to determine what happens and can change from compiler to compiler, or even computer to computer. It is important to make sure that your programs do not rely on the non-standard behavior.
 
-
-
+The next thing to understand is how C behaves when you mix types. There are several ways types can be mixed, either through assignment, through arithmatic, or through comparisons.
 ```c
   int a = 1/3 /* 0 */
 ```
