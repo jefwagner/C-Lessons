@@ -60,9 +60,10 @@ After you've written the source code, you have to compile it. This is done on th
 ```bash
 $> gcc -o hello hello.c
 ```
-(*Note: In the unix environment, executable programs have no extension.*) There are several other command line options that we will want to know about. For now, we will focus on adding just a few. First is the '-Wall' option. This turns on all possible warnings (-W for warning, then all; not the word wall). A warning is something the that will compile, but is often the result of a mistake - most often for me at least for leaving out semicolons. Next is the '-O0', '-O1', '-O2', '-O3' (that is dash capital O, then a number, not dash then the numeral 0). This enables or disables optimizations. You will often want to use '-O0' or '-O1' when you are writing the program, then switch to '-O2' or '-O3' when running the program. Finally, we will often want to enable debugging (covered much later) when we are developing the program with the '-g' option. A typical compilation command the combines all of these options is given below
+(*Note: In the unix environment, executable programs have no extension.*) There are several other command line options that we will want to know about. For now, we will focus on adding just a few. First is the '-Wall' option. This turns on all possible warnings (-W for warning, then all; not the word wall). A warning is something the that will compile, but is often the result of a mistake - most often for me at least for leaving out semicolons. Next is the '-O0', '-O1', '-O2', '-O3' (that is dash capital O, then a number, not dash then the numeral 0). This enables or disables optimizations. You will often want to use '-O0' or '-O1' when you are writing the program, then switch to '-O2' or '-O3' when running the program. Finally, we will often want to enable debugging (covered much later) when we are developing the program with the '-g' option. However, we often leave off the '-g' option when we used a higher optimzation setting. Two typical compilation commands that combine all of these options is given below.
 ```bash
 $> gcc -Wall -O0 -g -o hello hello.c
+$> gcc -Wall -O3 -o hello hello.c
 ```
 
 ### Assignment ###
@@ -81,19 +82,80 @@ In a programming language, a variable is used to store information. The amount o
 
 **`double`** - A `double` is a floating point number that occupies 8 bytes of data. In the 8 byte floating point representation 53 bits are used to story the mantissa and 11 for the exponent. This allows you to represent numbers from 10^-308 to 10^308 and gives you about 15 decimal places of accuracy.
 
-We say that you 'declare' a variable when you give it a name, and tell the compiler what type of variable it will be.
+We say that you 'declare' a variable when you give it a type and a name. In C, the variable declaration syntax as shown below.
+```c
+int i; /* loop index */
+double x; /* independent variable */
+double a, b, c; /* quadratic coefficients */
+```
+You start out with the variable type followed by the variable name, finished with a semicolon. As is shown on the last line, you can declare multiple variables of the same type on the same line if you use commas to separate names.
+
+We will often want to assign values to the variables, either when we declare them, or sometime after we declare them. This is done with the assignment operator `=` (a single equals sign).
+```c
+int i=0;
+int j=1, k=2;
+float a, b, c;
+a = 1.0;
+b = 3.14159;
+c = b;
+```
+You can either assign a value to the variable when you assign it, as seen in the first two lines, or you can wait until later, as in the 4th and 5th line. You can also asign the value of a variable from another variable, as seen in the 6th line. It is strongly recommended that you assign values to all variables when you declare them. This eliminates one possible source of bugs: using unitilialized data. The following program demonstrates using uninitialized data.
+```c
+/* This program demonstrates using
+ * an uninitialized value.
+ *
+ * Author : Jef Wagner
+ * Date : 01-06-2014
+ */
+ 
+#include <stdio.c>
+
+int main(){
+  float a; /* declare an uninitialized variable */
+
+  printf("a = %f \n", a); /* print the value */
+  return 0;
+}
+```
+First, if I try to compile this program, I will get a warning about using an uninitialized value. Second, I might notice different behaviour if I compile with different optimization options. That is it might behave one way if compiled with '-O0' and another when compiled with '-O3'.
+
+Once a variable has been declared and its value determined, we will need to output that value in some what. The simplest way is using the `printf` function, which stands for formatted print. An example was used in the short program above.
+```c
+  printf("a = %g \n", a); /* print the value */
+```
+The `printf` function takes a variable number of arguments. The first argument is a string. This string should contain 'format specifier's. A 'format specifier' is a percent sign possibly followed by a number followed by a letter, and tells the computer how to format the output. For us, the imporant format specifiers are `%s` for a string, `%d` for a decimal integer, `%f` for a floating point number in decimal notation, `%e` for a floating point number, and `%g` for the shorterof the `%e` and `%f` options. (*Note: I've given you the bare minimum for using the printf statment -- you should google 'printf' to learn more about the format specifiers.*)
+
+Variables really become useful when we start manipulating them. C allows you to do simple arthmatic will the numeric variables: negation (`-`), addition (`+`), subtraction (`-`), multiplication (`*`), and division (`/`). (*Note: Raising to a power is **not** one of the basic operations.*) Parenthesis can be used to group operations. The order of operations are the usual ones from algebra: parenthesis first, multiplication and division second, addition and subtraction third.
+```c
+  int a = 6, b = 10, c = 3;
+ 
+  int d = -a; /* -6 */ 
+  int e = a + b; /* 16 */
+  int f = b - a; /* 4 */
+  int g = a*c; /* 18 */
+  int h = a/c; /* 2 */
+  int i = b*c+a /* 36 */
+  int j = b*(c+a) /* 90 */
+```
+These operations behave as you would expect for both integer types (`int` and `long`) and floating points types (`float` and `double`) with a few caveats. 
+
+For the first caveat, you have to be careful about division with integer types. Intergers are not closed under division, when you divide two integers you get both a quotient and a remainder. For integer types, the division operator gives only the quotient. (*Note: The modulo operator (`%`) gives the remainder.*) The second caveat is what happens when the values go out of the ranges listed above. This is undefined behavior according to the C language standard, which means that it is up to the compiler writers to determine what happens and can change from compiler to compiler, or even computer to computer. It is important to make sure that your programs do not rely on the non-standard behavior.
 
 
+
+```c
+  int a = 1/3 /* 0 */
+```
 
 * Variables
-  - declare type and name: char, int, long, float, double
-  - assign value
-    - uninitialized variables
-  - print value
-  - re-assign value
-  - simple arithmatic
-    - order of operation
-    - integer division
+x  - declare type and name: char, int, long, float, double
+x  - assign value
+x    - uninitialized variables
+x  - print value
+x  - re-assign value
+x  - simple arithmatic
+x    - order of operation
+x    - integer division
   - explicit cast
   - implicit cast (promotion)
   - comparisons
