@@ -21,13 +21,12 @@
   - assign value
     - uninitialized variables
   - print value
-  - re-assign value
   - simple arithmatic
     - order of operation
     - integer division
-  - explicit cast
-  - implicit cast (promotion)
   - comparisons
+  - implicit cast (promotion)
+  - explicit cast
 
   - Assignment: make a simple program that demonstrates:
     - integer arithmatic
