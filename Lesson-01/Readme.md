@@ -84,6 +84,8 @@ In a programming language, a variable is used to store information. The amount o
 
 **`double`** - A `double` is a floating point number that occupies 8 bytes of data. In the 8 byte floating point representation 53 bits are used to story the mantissa and 11 for the exponent. This allows you to represent numbers from 10^-308 to 10^308 and gives you about 15 decimal places of accuracy.
 
+These are the basic types, but there are a few more: `long long` another integer type with more bits than a `long` and `long double` another floating point type with more bits than a `double`. The most common integer type is `int` which will have 4 bytes in most implimentations, and `double` for the standard floating point type. The last thing to specify is that all the integer types can have an additional keyword `unsigned` which forbids non-negative numbers.
+
 We say that you 'declare' a variable when you give it a type and a name. In C, the variable declaration syntax as shown below.
 ```c
 int i; /* loop index */
