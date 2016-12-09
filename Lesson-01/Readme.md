@@ -21,7 +21,7 @@ After you have a source file a second program translates the human readable prog
 ```bash
 $> gcc hello.c
 ```
-(*Note: When giving commands on the command line, I will write precede them with a $> to represent the command prompt. Do not copy these two symbols. If you do you will get an error message.*) The command should have created a new file called "a.out". This is your compiled program. You can now run you program by typing it's name preceded by a './':
+(*Note: When giving commands on the command line, I will write precede them with a $> to represent the command prompt. Do not copy these two symbols. If you do you will get an error message.*) The command should have created a new file called "a.out". This is your compiled program. You can now run your program by typing its name, preceded by a './':
 ```bash
 $> ./a.out
 ```
@@ -31,14 +31,14 @@ $> ./a.out
 Hello World!
 $>
 ```
-If it didn't work you get your first try at debugging! The most common mistake is that you have not correctly navigated to the directory that holds your "hello.c" source file. You can check the present working directory with the `pwd` command, and you can check the contents of the directory with the `ls` command. The second most common mistake is not having gcc compiler installed correctly, or it not being in your executable path.
+If it didn't work, you get your first try at debugging! The most common mistake is that you have not correctly navigated to the directory that holds your "hello.c" source file. You can check the present working directory with the `pwd` command, and you can check the contents of the directory with the `ls` command. The second most common mistake is not having gcc compiler installed correctly, or it not being in your executable path.
 
 If it did work, Congratulations! You have just written and compiled your first program. Lets go through the program line by line to see what parts it has. The very first thing we see are two comments.
 ```c
 /* Author : Your name */
 /* Date : Today's date */
 ```
-A comment is any thing between `/*` and `*/`. It is important to comment you code. In this case, the code was used to note the author and date of creation. You also often describe the purpose of the code and any inputs and outputs it might have. The next thing we see is an include statement.
+A comment is a line of text used to communicate something to whomever may be reading your code later. We enclose comments with `/*` and `*/` as shown above. The compiler ignores anything written in between those symbols; that is to say, the comments do not show up in the code the computer receives. It is important to comment you code. In this case, the code was used to note the author and date of creation. You also often describe the purpose of the code and any inputs and outputs it might have. The next thing we see is an include statement.
 ```c
 #include <stdio.h>
 ```
@@ -60,7 +60,7 @@ After you've written the source code, you have to compile it. This is done on th
 ```bash
 $> gcc -o hello hello.c
 ```
-(*Note: In the unix environment, executable programs have no extension.*) There are several other command line options that we will want to know about. For now, we will focus on adding just a few. First is the `-Wall` option. This turns on all possible warnings (-W for warning, then all; not the word wall). A warning is something the that will compile, but is often the result of a mistake - most often for me at least for leaving out semicolons. Next is the `-O0`, `-O1`, `-O2`, `-O3` (that is dash capital O, then a number, not dash then the numeral 0). This enables or disables optimizations. You will often want to use `-O0` or `-O1` when you are writing and developing the program, then switch to `-O2` or `-O3` when running the program at large scale. Finally, we will often want to enable debugging (covered much later) when we are developing the program with the `-g` option. However, we often leave off the `-g` option when we used a higher optimization setting. Two typical compilation commands that combine all of these options is given below.
+(*Note: In the unix environment, executable programs have no extension.*) There are several other command line options that we will want to know about. For now, we will focus on adding just a few. First is the `-Wall` option. This turns on all possible warnings (-W for warning, then all; not the word wall). A warning is something the that will compile, but is often the result of a mistake - most often for me, the mistake is leaving out semicolons. Next is the `-O0`, `-O1`, `-O2`, `-O3` (that is dash capital O, then a number, not dash then the numeral 0). This enables or disables optimizations. You will often want to use `-O0` or `-O1` when you are writing and developing the program, then switch to `-O2` or `-O3` when running the program at large scale. Finally, we will often want to enable debugging (covered much later) when we are developing the program with the `-g` option. However, we often leave off the `-g` option when we use a higher optimization setting. Two typical compilation commands that combine all of these options are given below.
 ```bash
 $> gcc -Wall -O0 -g -o hello hello.c
 $> gcc -Wall -O3 -o hello hello.c
@@ -68,13 +68,13 @@ $> gcc -Wall -O3 -o hello hello.c
 
 ### Assignment ###
 
-Create a new source file called 'hw-01a.c' what prints out a different statement to the command line. Then compile it and name the program 'hw-01a'.
+Create a new source file called 'hw-01a.c' that prints out a different statement to the command line. Then, compile it and name the program 'hw-01a'.
 
 ## Variables in C ##
 
 In a programming language, a variable is used to store information. The amount of memory needed depends on the type of information being stored. For example, it requires less memory to store an integer number than it does to store a decimal number. In the C programming language you have to tell the compiler what the type of every variable you use will be. There are 5 basic types in C:
   
-**`char`** - A `char` can store 1 byte, or 8 bits. A single character of ASCII text, so we most often use `char` types to hold single ascii characters. A `char` can also be used to hold a small integer between (-2^7,2^7-1) or (-128,127) inclusive.
+**`char`** - A `char` can store 1 byte, or 8 bits. A single character of ASCII text is one byte, so we most often use `char` types to hold single ASCII characters. A `char` can also be used to hold a small integer between (-2^7,2^7-1) or (-128,127) inclusive.
 
 **`int`** - An `int` is made up of multiple bytes (most often 2 or 4) and represents an integer represented in binary. The min and max numbers that can be represented are (-2^15,2^15-1) for the 2 byte representation or (-2^31,2^31-1) for the 4 byte representation.
 
@@ -143,9 +143,9 @@ Variables really become useful when we start manipulating them. C allows you to 
 ```
 These operations behave as you would expect for both integer types (`int` and `long`) and floating points types (`float` and `double`) with a few caveats. 
 
-For the first caveat, you have to be careful about division with integer types. Integers are not closed under division, when you divide two integers you get both a quotient and a remainder. For integer types, the division operator gives only the quotient. (*Note: The modulo operator (`%`) gives the remainder.*) The second caveat is what happens when the values go out of the ranges listed above. This is undefined behavior according to the C language standard, which means that it is up to the compiler writers to determine what happens and can change from compiler to compiler, or even computer to computer. It is important to make sure that your programs do not rely on the non-standard behavior.
+For the first caveat, you have to be careful about division with integer types. Integers are not closed under division; when you divide two integers you get both a quotient and a remainder. For integer types, the division operator gives only the quotient. (*Note: The modulo operator (`%`) gives the remainder.*) The second caveat is what happens when the values go out of the ranges listed above. This is undefined behavior according to the C language standard, which means that it is up to the compiler writers to determine what happens and can change from compiler to compiler, or even computer to computer. It is important to make sure that your programs do not rely on the non-standard behavior.
 
-If after we have assign and manipulated the variables we often want to compare them. There are six ways to compare the simple numeric value types: less than (`<`), less than or equal to (`<=`), equal (`==`) (two equals signs in a row), greater than or equal to (`>=`), and greater than (`>`), and finally not equal (`!=`). All of these operators should evaluate to true or false, and are most often used in if statements for program flow control. 
+After we have assign and manipulated the variables, we often want to compare them. There are six ways to compare the simple numeric value types: less than (`<`), less than or equal to (`<=`), equal (`==`) (two equals signs in a row), greater than or equal to (`>=`), and greater than (`>`), and finally not equal (`!=`). All of these operators should evaluate to true or false, and are most often used in if statements for program flow control. 
 ```c
 int a = 1;
 int b = a+1;
@@ -219,7 +219,7 @@ Compile it and name the program 'hw-01b'.
 
 ## The C math library ##
 
-We saw that we can do simple arithmetic using directly. More advanced math will require using a library. For the rest of what are considered the elementary function, we can use the C math library. These are named functions. The important ones are:
+We saw that we can do simple arithmetic using directly. More advanced math will require using a library. For the rest of what are considered the elementary functions, we can use the C math library. These are named functions. The important ones are:
   - `sqrt` : square root.
   - `cbrt` : cube root.
   - `hypot` : find hypotenuses of a right triangle given two legs.
@@ -254,7 +254,7 @@ int main(){
 ```
 In addition to adding the additional include statement you need to tell the compiler that you want to use the external math library. This is done with the `-lm` option.
 ```bash
-$> gcc -Wall -O0 -g -lm -o area2radius area2radius.c
+$> gcc -Wall -O0 -g -o area2radius area2radius.c -lm
 ```
 You will need to do the same if you want to use other external libraries. The options is always `-l` followed by the library name. The math library is the only one included with every C compiler.
 
